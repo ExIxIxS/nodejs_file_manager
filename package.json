@@ -1,0 +1,21 @@
+{
+  "name": "node-nodejs-basics",
+  "version": "1.0.0",
+  "description": "node.js file manager application",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "start": "node src/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExIxIxS/nodejs_file_manager.git"
+  },
+  "keywords": [
+    "nodejs",
+    "assignments"
+  ],
+  "author": "ExIxIxS",
+  "license": "MIT",
+  "homepage": "https://github.com/ExIxIxS/nodejs_file_manager#readme"
+}
