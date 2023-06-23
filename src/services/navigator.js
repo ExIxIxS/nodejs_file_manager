@@ -13,6 +13,10 @@ class Navigator {
     this.userName = userName;
   }
 
+  get currentDirectory() {
+    return process.cwd();
+  }
+
   switchToUserDirectory() {
     process.chdir(`${USERS_FOLDER_PATH}/${this.userName}`);
   }

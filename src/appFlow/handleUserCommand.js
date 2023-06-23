@@ -2,6 +2,7 @@ import { userNavigator } from "../index.js";
 import { USER_COMMANDS } from "../constants/userCommands.js";
 import { handleError } from "../services/errorHandler.js";
 import { getExitMessage } from "../utils/messageGetters.js";
+import { getFileListTable } from "../fs/ls.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -24,6 +25,14 @@ const handleUserCommand = async (command) => {
       const [path] = args;
 
       userNavigator.goToDirectory(path);
+      break;
+    }
+    case 'ls': {
+      const filesTable = await getFileListTable();
+      if (filesTable) {
+        console.table(filesTable);
+      }
+
       break;
     }
 
