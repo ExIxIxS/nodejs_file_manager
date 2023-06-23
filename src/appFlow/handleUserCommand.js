@@ -4,6 +4,7 @@ import { handleError } from "../services/errorHandler.js";
 import { getExitMessage } from "../utils/messageGetters.js";
 import { getFileListTable } from "../fs/ls.js";
 import { readFileToConsole } from "../fs/filesReading.js";
+import { create } from "../fs/create.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -40,6 +41,13 @@ const handleUserCommand = async (command) => {
       const [filePath] = args;
 
       await readFileToConsole(filePath);
+
+      break;
+    }
+    case 'add': {
+      const [fileName] = args;
+
+      await create(fileName);
 
       break;
     }
