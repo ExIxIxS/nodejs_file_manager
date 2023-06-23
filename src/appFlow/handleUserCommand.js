@@ -8,6 +8,7 @@ import { create } from "../fs/create.js";
 import { rename } from "../fs/rename.js";
 import { copyFile } from "../fs/copyFile.js";
 import { deleteFile } from "../fs/delete.js";
+import { moveFile } from "../fs/move.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -60,14 +61,20 @@ const handleUserCommand = async (command) => {
       break;
     }
     case 'cp': {
-      const [sourcePath, targetPath] = args;
-      copyFile(sourcePath, targetPath);
+      const [sourceFilePath, targetDirectoryPath] = args;
+      copyFile(sourceFilePath, targetDirectoryPath);
 
       break;
     }
     case 'rm': {
       const [targetPath] = args;
       deleteFile(targetPath);
+
+      break;
+    }
+    case 'mv': {
+      const [sourceFilePath, targetDirectoryPath] = args;
+      moveFile(sourceFilePath, targetDirectoryPath);
 
       break;
     }
