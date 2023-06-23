@@ -9,6 +9,7 @@ import { rename } from "../fs/rename.js";
 import { copyFile } from "../fs/copyFile.js";
 import { deleteFile } from "../fs/delete.js";
 import { moveFile } from "../fs/move.js";
+import { handleOsCommand } from '../os/handleOsCommand.js';
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -75,6 +76,12 @@ const handleUserCommand = async (command) => {
     case 'mv': {
       const [sourceFilePath, targetDirectoryPath] = args;
       moveFile(sourceFilePath, targetDirectoryPath);
+
+      break;
+    }
+    case 'os': {
+      const [osArg] = args;
+      handleOsCommand(osArg);
 
       break;
     }
