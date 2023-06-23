@@ -3,6 +3,7 @@ import { USER_COMMANDS } from "../constants/userCommands.js";
 import { handleError } from "../services/errorHandler.js";
 import { getExitMessage } from "../utils/messageGetters.js";
 import { getFileListTable } from "../fs/ls.js";
+import { readFileToConsole } from "../fs/filesReading.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -35,7 +36,13 @@ const handleUserCommand = async (command) => {
 
       break;
     }
+    case 'cat': {
+      const [filePath] = args;
 
+      await readFileToConsole(filePath);
+
+      break;
+    }
     default: {
       handleError(new Error('Unknown user command'), `Unknown user command, ${commandName}`)
     }
