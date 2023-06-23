@@ -1,6 +1,6 @@
-function handleError(err, message) {
+function handleError(err, comment) {
   console.error('Operation failed');
-  console.log(message);
+  console.log(comment);
   console.log(err);
 }
 
