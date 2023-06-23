@@ -6,6 +6,7 @@ import { getFileListTable } from "../fs/ls.js";
 import { readFileToConsole } from "../fs/filesReading.js";
 import { create } from "../fs/create.js";
 import { rename } from "../fs/rename.js";
+import { copyFile } from "../fs/copyFile.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -54,6 +55,12 @@ const handleUserCommand = async (command) => {
     case 'rn': {
       const [filePath, fileName] = args;
       await rename(filePath, fileName);
+
+      break;
+    }
+    case 'cp': {
+      const [sourcePath, targetPath] = args;
+      copyFile(sourcePath, targetPath);
 
       break;
     }
