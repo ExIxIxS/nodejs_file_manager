@@ -2,7 +2,7 @@ import { createReadStream, createWriteStream } from 'node:fs'
 import { handleError } from '../services/errorHandler.js';
 import { isValidPath } from '../utils/checkers.js';
 
-function copyFile(sourceFilePath, targetFilePath) {
+function copyFile(sourceFilePath, targetFilePath, finishCallBack) {
   if (!isValidPath(sourceFilePath) || !isValidPath(targetFilePath)) {
     handleError(new Error('invalid arguments'), 'invalid path arguments');
 
@@ -21,6 +21,10 @@ function copyFile(sourceFilePath, targetFilePath) {
   });
 
   sourceStream.pipe(targetStream);
+
+  if (typeof(finishCallBack) === 'function') {
+    targetStream.on('finish', finishCallBack)
+  }
 }
 
 export { copyFile };

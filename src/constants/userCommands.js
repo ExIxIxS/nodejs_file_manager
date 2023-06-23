@@ -8,6 +8,7 @@ const userCommands = [
   'rn',
   'cp',
   'mv',
+  'rm',
   'os',
   'hash',
   'compress',
