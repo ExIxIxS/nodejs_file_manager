@@ -1,27 +1,30 @@
 import { isAbsolute, resolve } from 'node:path';
 
 import { handleError } from './errorHandler.js';
-
 import { USERS_FOLDER_PATH } from "../constants/paths.js";
 import { isNonEmptyString } from '../utils/checkers.js';
-import createFolder from '../fs/createFolder.js';
 
 const ABSOLUTE_ROOT_PATH = resolve(USERS_FOLDER_PATH);
 
 class Navigator {
   constructor(userName) {
-
     this.userName = userName;
-    createFolder(userName);
-    this.switchToUserDirectory();
   }
 
   get currentDirectory() {
     return process.cwd();
   }
 
+  get rootPath() {
+    return ABSOLUTE_ROOT_PATH;
+  }
+
+  get userDirectory() {
+    return `${ABSOLUTE_ROOT_PATH}/${this.userName}`;
+  }
+
   switchToUserDirectory() {
-    process.chdir(`${USERS_FOLDER_PATH}/${this.userName}`);
+    process.chdir(this.userDirectory);
   }
 
   goUpper() {

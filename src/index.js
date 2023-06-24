@@ -1,4 +1,7 @@
 import execute from './appFlow/execute.js'
+import { ERROR_LOG_FILE_NAME } from './constants/paths.js';
+import { createLogFile } from './fs/create.js';
+import createFolder from './fs/createFolder.js';
 import Navigator from './services/navigator.js';
 import { getStartMessage } from './utils/getters.js';
 
@@ -13,9 +16,12 @@ const [, userName] = userNameArg.split('=');
 
 const userNavigator = new Navigator(userName);
 
-userNavigator.switchToUserDirectory();
-console.log(getStartMessage(userName));
-userNavigator.informAboutCurrenDirectory();
+createFolder(userNavigator.rootPath, userName, () => {
+  userNavigator.switchToUserDirectory();
+  createLogFile(ERROR_LOG_FILE_NAME);
+  console.log(getStartMessage(userName));
+  userNavigator.informAboutCurrenDirectory();
+});
 
 await execute();
 

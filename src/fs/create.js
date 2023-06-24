@@ -1,4 +1,4 @@
-import { open, close } from 'node:fs';
+import { open, close, stat } from 'node:fs';
 import { handleError } from '../services/errorHandler.js';
 import { userNavigator } from '../index.js';
 
@@ -27,4 +27,16 @@ function closeFd(fd) {
   });
 }
 
-export { create };
+function createLogFile(fileName) {
+    const filePath = `${userNavigator.currentDirectory}/${fileName}`;
+
+    stat(filePath, handleStat);
+
+    async function handleStat(err, _) {
+        if (err) {
+          await create(fileName);
+        }
+    }
+}
+
+export { create, createLogFile };
