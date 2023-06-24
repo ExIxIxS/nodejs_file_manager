@@ -1,4 +1,4 @@
-const USERS_FOLDER_PATH = './src/users';
+const USERS_FOLDER_PATH = './users';
 
 export {
   USERS_FOLDER_PATH,

@@ -10,6 +10,7 @@ import { copyFile } from "../fs/copyFile.js";
 import { deleteFile } from "../fs/delete.js";
 import { moveFile } from "../fs/move.js";
 import { handleOsCommand } from '../os/handleOsCommand.js';
+import { getFileHash } from "../hash/calcHash.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -82,6 +83,15 @@ const handleUserCommand = async (command) => {
     case 'os': {
       const [osArg] = args;
       handleOsCommand(osArg);
+
+      break;
+    }
+    case 'hash': {
+      const [filePath] = args;
+      const hash = await getFileHash(filePath);
+      if (hash) {
+        console.log(hash);
+      }
 
       break;
     }
