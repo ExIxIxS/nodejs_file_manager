@@ -1,34 +1,35 @@
-import { createReadStream, createWriteStream, rm } from 'node:fs';
-import { createGunzip } from 'node:zlib';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createBrotliDecompress } from 'node:zlib';
 
-/*
-decompress.js - implement function that decompresses archive.gz
-    back to the fileToCompress.txt with same content as before compression using zlib and Streams API
-*/
+import { isValidPath } from '../utils/checkers.js';
+import { handleError } from '../services/errorHandler.js';
+import { getFileNameFromFilePath } from '../utils/getters.js';
 
-const FILE_PATH = './src/zip/files/fileToCompress.txt';
-const ARCHIVE_PATH = './src/zip/files/archive.gz';
+async function decompress(zipFilePath, unzipDirectoryPath) {
+    if (!isValidPath(zipFilePath) || !isValidPath(unzipDirectoryPath)) {
+        handleError(new Error('invalid arguments'), 'invalid path arguments');
 
-const decompress = async (filePath, zipDirectoryPath) => {
-    const readStream = createReadStream(ARCHIVE_PATH);
-    const writeStream = createWriteStream(FILE_PATH);
-    const gunzip = createGunzip();
+        return;
+    }
 
-    readStream.pipe(gunzip).pipe(writeStream);
+    const fileName = getFileNameFromFilePath(zipFilePath)
+        .replaceAll('.bz', '');
 
-    writeStream.on('finish', () => {
-        rm(ARCHIVE_PATH, (err) => {
-            if (err) {
-                throw new Error(`Error deleting file: ${err}`);
-            } else {
-                console.log('Decompression completed!');
-            }
-        });
+    const unzipFilePath = `${unzipDirectoryPath}/${fileName}`;
+
+    const readStream = createReadStream(zipFilePath);
+    const writeStream = createWriteStream(unzipFilePath);
+    const bzip = createBrotliDecompress();
+
+    readStream.pipe(bzip).pipe(writeStream);
+
+    readStream.on('error', (err) => {
+        handleError(err, 'decompress readStream error')
     });
 
     writeStream.on('error', (err) => {
-        throw new Error(`Error decompressing file: ${err}`);
+        handleError(err, 'decompress writeStream error')
     });
 };
 
-await decompress();
+export { decompress };

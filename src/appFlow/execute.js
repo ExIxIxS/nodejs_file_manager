@@ -1,6 +1,6 @@
 import { Transform } from 'node:stream';
 import handleUserCommand from './handleUserCommand.js';
-import { getExitMessage } from '../utils/messageGetters.js';
+import { getExitMessage } from '../utils/getters.js';
 import { userNavigator } from '../index.js';
 
 const execute = async () => {

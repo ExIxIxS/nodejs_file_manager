@@ -1,6 +1,7 @@
 import { createReadStream, createWriteStream } from 'node:fs'
 import { handleError } from '../services/errorHandler.js';
 import { isValidPath } from '../utils/checkers.js';
+import { getFileNameFromFilePath } from '../utils/getters.js';
 
 function copyFile(sourceFilePath, targetDirectoryPath, finishCallBack) {
   if (!isValidPath(sourceFilePath) || !isValidPath(targetDirectoryPath)) {
@@ -9,10 +10,7 @@ function copyFile(sourceFilePath, targetDirectoryPath, finishCallBack) {
     return;
   }
 
-  const fileName = sourceFilePath
-    .split('/')
-    .slice(-1)
-    .join('');
+  const fileName = getFileNameFromFilePath(sourceFilePath);
 
   const copyFilePath = `${targetDirectoryPath}/${fileName}`;
 

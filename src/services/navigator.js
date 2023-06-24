@@ -4,13 +4,16 @@ import { handleError } from './errorHandler.js';
 
 import { USERS_FOLDER_PATH } from "../constants/paths.js";
 import { isNonEmptyString } from '../utils/checkers.js';
-
+import createFolder from '../fs/createFolder.js';
 
 const ABSOLUTE_ROOT_PATH = resolve(USERS_FOLDER_PATH);
 
 class Navigator {
   constructor(userName) {
+
     this.userName = userName;
+    createFolder(userName);
+    this.switchToUserDirectory();
   }
 
   get currentDirectory() {

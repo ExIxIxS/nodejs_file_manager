@@ -1,7 +1,7 @@
 import { userNavigator } from "../index.js";
 import { USER_COMMANDS } from "../constants/userCommands.js";
 import { handleError } from "../services/errorHandler.js";
-import { getExitMessage } from "../utils/messageGetters.js";
+import { getExitMessage } from "../utils/getters.js";
 import { getFileListTable } from "../fs/ls.js";
 import { readFileToConsole } from "../fs/filesReading.js";
 import { create } from "../fs/create.js";
@@ -11,6 +11,8 @@ import { deleteFile } from "../fs/delete.js";
 import { moveFile } from "../fs/move.js";
 import { handleOsCommand } from '../os/handleOsCommand.js';
 import { getFileHash } from "../hash/calcHash.js";
+import { compress } from "../zip/compress.js";
+import { decompress } from "../zip/decompress.js";
 
 const handleUserCommand = async (command) => {
   const [commandName, ...args] = command.split(' ');
@@ -92,6 +94,18 @@ const handleUserCommand = async (command) => {
       if (hash) {
         console.log(hash);
       }
+
+      break;
+    }
+    case 'compress': {
+      const [filePath, zipDirectory] = args;
+      await compress(filePath, zipDirectory);
+
+      break;
+    }
+    case 'decompress': {
+      const [filePath, zipDirectory] = args;
+      await decompress(filePath, zipDirectory);
 
       break;
     }

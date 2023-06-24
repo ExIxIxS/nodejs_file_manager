@@ -1,7 +1,6 @@
 import execute from './appFlow/execute.js'
-import createFolder from './fs/createFolder.js';
 import Navigator from './services/navigator.js';
-import { getStartMessage } from './utils/messageGetters.js';
+import { getStartMessage } from './utils/getters.js';
 
 const args = process.argv.slice(2);
 const userNameArg = args.find(arg => arg.startsWith('--username='));
@@ -13,9 +12,8 @@ if (!userNameArg) {
 const [, userName] = userNameArg.split('=');
 
 const userNavigator = new Navigator(userName);
-createFolder(userName);
-userNavigator.switchToUserDirectory();
 
+userNavigator.switchToUserDirectory();
 console.log(getStartMessage(userName));
 userNavigator.informAboutCurrenDirectory();
 

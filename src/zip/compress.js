@@ -1,34 +1,32 @@
-import { createReadStream, createWriteStream, rm } from 'node:fs';
-import { createGzip } from 'node:zlib';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createBrotliCompress } from 'node:zlib';
 
-/*
-compress.js - implement function that compresses file fileToCompress.txt
-    to archive.gz using zlib and Streams API
-*/
+import { getFileNameFromFilePath } from '../utils/getters.js';
+import { handleError } from '../services/errorHandler.js';
+import { isValidPath } from '../utils/checkers.js';
 
-const FILE_PATH = './src/zip/files/fileToCompress.txt';
-const ARCHIVE_PATH = './src/zip/files/archive.gz';
+async function compress(filePath, zipDirectoryPath) {
+    if (!isValidPath(filePath) || !isValidPath(zipDirectoryPath)) {
+        handleError(new Error('invalid arguments'), 'invalid path arguments');
 
-const compress = async () => {
-    const readStream = createReadStream(FILE_PATH);
-    const writeStream = createWriteStream(ARCHIVE_PATH);
-    const gzip = createGzip();
+        return;
+    }
 
-    readStream.pipe(gzip).pipe(writeStream);
+    const fileName = getFileNameFromFilePath(filePath);
+    const zipFilePath = `${zipDirectoryPath}/${fileName}.bz`;
+    const readStream = createReadStream(filePath);
+    const writeStream = createWriteStream(zipFilePath);
+    const bzip = createBrotliCompress();
 
-    writeStream.on('finish', () => {
-        rm(FILE_PATH, (err) => {
-            if (err) {
-                throw new Error(`Error deleting file: ${err}`);
-            } else {
-                console.log('Compression completed!');
-            }
-        });
+    readStream.pipe(bzip).pipe(writeStream);
+
+    readStream.on('error', (err) => {
+        handleError(err, 'compress readStream error')
     });
 
     writeStream.on('error', (err) => {
-        throw new Error(`Error compressing file: ${err}`);
+        handleError(err, 'compress writeStream error')
     });
 };
 
-await compress();
+export { compress };
