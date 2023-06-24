@@ -1,9 +1,6 @@
 import { createReadStream } from 'node:fs';
-import { handleError } from '../services/errorHandler.js';
 
-/*
-  Read file and print it's content in console (should be done using Readable stream)
-*/
+import { handleError } from '../services/errorHandler.js';
 
 async function readFileToConsole(filePath) {
     const stream = createReadStream(filePath);

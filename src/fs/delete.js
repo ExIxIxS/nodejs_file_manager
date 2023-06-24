@@ -1,13 +1,19 @@
 import { rm } from 'node:fs';
+
 import { handleError } from '../services/errorHandler.js';
 
-async function deleteFile(targetPath) {
-    rm(targetPath, callback)
+function deleteFile(targetPath) {
+    try {
+        rm(targetPath, callback)
+    } catch(err) {
+        handleError(err, `file deleting error for path: ${targetPath}`)
+    }
+
 };
 
 function callback(err) {
     if (err) {
-        handleError(err, `file deleting error for: ${targetPath}`)
+        handleError(err, `file deleting error for path: ${targetPath}`)
     };
 }
 

@@ -2,10 +2,6 @@ import { rename as fsRename } from 'node:fs';
 import { access, constants } from 'node:fs/promises';
 import { handleError } from '../services/errorHandler.js';
 
-/*
-Rename file (content should remain unchanged):
-*/
-
 async function rename (filePath, newFileName) {
     const newFilePath = filePath
         .split('/')

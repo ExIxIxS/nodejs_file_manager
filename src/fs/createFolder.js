@@ -1,4 +1,5 @@
 import { mkdir, stat } from 'node:fs';
+
 import { handleError } from '../services/errorHandler.js';
 
 function createFolder(directoryPath, folderName, finishCallBack) {
