@@ -1,11 +1,17 @@
 ## Node.js File Manager Application
+### 1. Description:
+The file manager is able to do the following:
+- Work using CLI
+- Perform basic file operations (copy, move, delete, rename, etc.)
+- Utilize Streams API
+- Get information about the host machine operating system
+- Perform hash calculations
+- Compress and decompress files
 
-### 1. Task: [Node.js File Manager](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md)
-### 2.How to use:
+### 2. How to use:
 + use cli script 'npm run start -- --username=YourName' or use test template 'npm run start -- --username=batman',
-+ follow the [instruction](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/score.md).
 
-### Features
+### 3. Features with usage examples
 ##### General
 | Feature | Usage example |
 | :---: | :---: |
@@ -60,3 +66,7 @@
 | For each user, errors are logged to a file userErrorsLog.txt. | Open userErrorsLog.txt |
 
 #### NOTE: in development used 18.16.0 LTS version of Node.js
+
+---------------------------
+
+#### Task: [Node.js File Manager](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md)
