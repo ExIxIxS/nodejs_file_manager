@@ -51,7 +51,7 @@ The file manager is able to do the following:
 | Calculate hash for file | 'hash toRead.txt' |
 ##### Compress and decompress operations
 | Feature | Usage example |
-| :---: | :---: | -- | -- |
+| :---: | :---: |
 | Compress file (using Brotli algorithm) | 'compress toCompress.txt archives' |
 | Decompress file (using Brotli algorithm) | 'decompress archives/toCompress.txt.bz ./' |
 #### Advanced Scope
